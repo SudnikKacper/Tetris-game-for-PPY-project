@@ -3,15 +3,6 @@
 #   Kacper  Sudnik      11C
 
 
-
-
-'''
-# TODO HIGHSCORE
-# TODO NEXT BLOCZEK
-'''
-
-
-
 from settings import *
 from figura import Figura
 import math
@@ -26,6 +17,9 @@ class Tetris:
         self.pozycje_figur = self.get_pos_figur()
         self.figura = Figura(self)
         self.kolejna_figura = Figura(self, obecny=False)
+        self.score = 0
+        self.hscore = 0
+        self.update_score = False
 
     def zapisz_pos_figury(self):
         for blok in self.figura.blocks:
@@ -48,6 +42,13 @@ class Tetris:
                 for x in range(FIELD_W):
                     self.pozycje_figur[rzad][x].zyje = False
                     self.pozycje_figur[rzad][x] = 0
+                self.update_score = True
+                self.score += 100
+
+        if self.hscore < self.score:
+            self.hscore = self.score
+
+
 
     def get_pos_figur(self):
         return [[0 for x in range(FIELD_W)] for y in range(FIELD_H)]
@@ -61,6 +62,7 @@ class Tetris:
         if self.czy_koniec_gry():
             self.game_gaused = True
         if self.figura.koniec_ruchu:
+
             self.speeed = False
             self.zapisz_pos_figury()
             self.kolejna_figura.obecny = True
