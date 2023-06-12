@@ -1,11 +1,15 @@
 #   Laura   Trzaska     11C
 #   Kacper  Tonderys    11C
 #   Kacper  Sudnik      11C
+import json
 
 from settings import *
 from tetris import Tetris
 import sys
 
+data = {
+    'hs': 0
+}
 class App:
     def __init__(self):
         pg.init()
@@ -24,13 +28,18 @@ class App:
         self.game_paused = False
         self.game_running = True
         self.s_surface = pg.Surface(vec(300,100))
+
+        with open('data.json', 'r') as file:
+            loaded_data = json.load(file)
+        data['hs'] = loaded_data['hs']
+        self.tetris.hscore = loaded_data['hs']
+        print(data['hs'])
+
+
         self.s_text = pg.font.SysFont(None, 24).render("SCORE", True, (155,164,181))
         self.s_score = pg.font.SysFont(None, 24).render(str(self.tetris.score), True, (155,164,181))
         self.hs_text = pg.font.SysFont(None, 24).render("HIGHSCORE", True, (155,164,181))
         self.hs_score = pg.font.SysFont(None, 24).render(str(self.tetris.hscore), True, (155,164,181))
-
-
-
 
 
     def set_timer(self):
@@ -87,6 +96,9 @@ class App:
                 self.anim_trigger = False
 
     def run(self):
+
+
+
         while True:
             if self.tetris.hscore < self.tetris.score:
                 self.tetris.hscore = self.tetris.score
