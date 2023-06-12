@@ -2,7 +2,6 @@
 #   Kacper  Tonderys    11C
 #   Kacper  Sudnik      11C
 
-
 from settings import *
 from figura import Figura
 import math
@@ -20,6 +19,7 @@ class Tetris:
         self.score = 0
         self.hscore = 0
         self.update_score = False
+        self.update_data = False
 
     def zapisz_pos_figury(self):
         for blok in self.figura.blocks:
@@ -47,6 +47,7 @@ class Tetris:
 
         if self.hscore < self.score:
             self.hscore = self.score
+            self.update_data = True
 
 
 

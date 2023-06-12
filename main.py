@@ -100,8 +100,12 @@ class App:
 
 
         while True:
-            if self.tetris.hscore < self.tetris.score:
-                self.tetris.hscore = self.tetris.score
+            if  self.tetris.update_data:
+                data['hs'] = self.tetris.hscore
+                print(data['hs'])
+                self.tetris.update_data = False
+                with open('data.json', 'w') as file:
+                    json.dump(data, file)
 
             if self.tetris.update_score:
                 self.s_score = pg.font.SysFont(None, 25).render(str(self.tetris.score), True, (155, 164, 181))
