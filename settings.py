@@ -4,23 +4,39 @@
 
 import pygame as pg
 
-vec = pg.math.Vector2
+'''
+ZMIENNE DO OKNA
+'''
 
 FPS = 60
-NORMAL_ANIM_TIME = 350 #to sa ms
-FAST_ANIM_TIME = 15 #to sa ms
 
+vec = pg.math.Vector2
 
-
-
-FIELD_COLOR = (71, 69, 64)
-
-TILE_SIZE = 50
+TILE_SIZE = 40
 FIELD_SIZE = FIELD_W, FIELD_H = 10, 20
 FIELD_RES = FIELD_W * TILE_SIZE, FIELD_H * TILE_SIZE
+RES_W = FIELD_W * TILE_SIZE * 2
+RES_H = FIELD_H * TILE_SIZE
+RES = RES_W, RES_H
+FIELD_COLOR = (44, 62, 80)
+
 
 INIT_POS_OFFSET = vec(FIELD_W / 2 - 1, 0)
-NEXT_POS_OFFSET = vec(FIELD_W * 1.3, FIELD_H * 0.45)
+NEXT_POS_OFFSET = vec(FIELD_W * 1.5, FIELD_H * 0.45)
+CUSTOM_EVENT = pg.USEREVENT + 1
+
+'''
+CZASY ANIMACJI
+'''
+NORMAL_ANIM_TIME = 350 #to sa ms
+FAST_ANIM_TIME = NORMAL_ANIM_TIME // 10
+
+
+
+
+FIELD_COLOR = pg.image.load('Resources/Backgrounds/pexels-codioful-(formerly-gradienta)-7135121.jpg')
+
+
 
 PORUSZANIE_FIGUR = {
     'LEWO': vec(-1, 0),
@@ -32,8 +48,6 @@ PORUSZANIE_FIGUR = {
 TEKSTURY
 '''
 
-
-
 FIGURY = {
     'T': {'points': [(0, 0), (-1, 0), (1, 0), (0, -1)], 'color': pg.transform.scale(pg.image.load('Resources/Klocki/czerwony.png'),(TILE_SIZE, TILE_SIZE))},
     'O': {'points': [(0, 0), (0, -1), (1, 0), (1, -1)], 'color': pg.transform.scale(pg.image.load('Resources/Klocki/green.png'),(TILE_SIZE, TILE_SIZE))},
@@ -44,5 +58,9 @@ FIGURY = {
     'Z': {'points': [(0, 0), (1, 0), (0, -1), (-1, -1)], 'color': pg.transform.scale(pg.image.load('Resources/Klocki/turqoise.png'),(TILE_SIZE, TILE_SIZE))}
 }
 
-# BACKGROUND = pg.image.load('')
-GAME_FIELD = pg.image.load('Resources/Backgrounds/pexels-codioful-(formerly-gradienta)-7135121.jpg')
+GAME_BACKGROUND = pg.image.load('Resources/Backgrounds/pexels-codioful-(formerly-gradienta)-7135121.jpg')
+GAME_BACKGROUND = pg.transform.scale(GAME_BACKGROUND, RES)
+MAIN_BACKGROUND = pg.image.load('Resources/Backgrounds/bckgrnd.jpg')
+MAIN_BACKGROUND = pg.transform.scale(MAIN_BACKGROUND, FIELD_RES)
+BCG_COLOR = (44, 62, 80)
+

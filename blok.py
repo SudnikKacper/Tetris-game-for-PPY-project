@@ -19,7 +19,7 @@ class Blok(pg.sprite.Sprite):
 
 
     def set_pos(self):
-        pos = [self.next_pos, self.pos][True]
+        pos = [self.next_pos, self.pos][self.figura.obecny]
         self.rect.topleft = pos * TILE_SIZE
 
     def update(self):
@@ -30,7 +30,6 @@ class Blok(pg.sprite.Sprite):
         if not self.zyje:
             self.kill()
 
-    # TODO ZJEBANA ROTACJA DO POPRAWY
     def rotacja(self, pos_pivot):
         temp = self.pos - pos_pivot
         obrocony = temp.rotate(90)

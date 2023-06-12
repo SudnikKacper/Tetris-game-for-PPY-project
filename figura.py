@@ -8,13 +8,13 @@ import random
 
 
 class Figura:
-    def __init__(self, tetris):
+    def __init__(self, tetris, obecny=True):
         self.tetris = tetris
         self.shape = random.choice(list(FIGURY.keys()))
         self.kolor = FIGURY[self.shape]['color']
         self.blocks = [Blok(self, pos) for pos in FIGURY[self.shape]['points']]
         self.koniec_ruchu = False
-
+        self.obecny = obecny
 
 
     def move(self, kierunek):

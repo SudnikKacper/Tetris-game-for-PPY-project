@@ -6,11 +6,8 @@
 
 
 '''
-# TODO POPRAWA ROTACJI
 # TODO HIGHSCORE
-# TODO GUI
-# TODO IM DALJE TYM SZYBCIEJ NAPIERDALA
-# TODO IM DALEJ TO ZMIENIA TŁO I TEKSTURE BLOCZKÓW
+# TODO NEXT BLOCZEK
 '''
 
 
@@ -22,11 +19,13 @@ import math
 
 class Tetris:
     def __init__(self, app):
+        self.game_gaused = False
         self.speeed = False
         self.app = app
         self.sprites = pg.sprite.Group()
         self.pozycje_figur = self.get_pos_figur()
         self.figura = Figura(self)
+        self.kolejna_figura = Figura(self, obecny=False)
 
     def zapisz_pos_figury(self):
         for blok in self.figura.blocks:
@@ -53,11 +52,21 @@ class Tetris:
     def get_pos_figur(self):
         return [[0 for x in range(FIELD_W)] for y in range(FIELD_H)]
 
+    def czy_koniec_gry(self):
+        if self.figura.blocks[0].pos.y == INIT_POS_OFFSET[1]:
+            pg.time.wait(300)
+            return True
+
     def czy_koniec_spadania(self):
+        if self.czy_koniec_gry():
+            self.game_gaused = True
         if self.figura.koniec_ruchu:
             self.speeed = False
             self.zapisz_pos_figury()
-            self.figura = Figura(self)
+            self.kolejna_figura.obecny = True
+            self.figura = self.kolejna_figura
+            self.kolejna_figura = Figura(self, obecny=False)
+
 
     def kontrola_lewo_prawo(self, pressed_key):
         if pressed_key == pg.K_LEFT:
@@ -69,6 +78,8 @@ class Tetris:
         elif pressed_key == pg.K_DOWN:
             self.speeed = True
 
+
+# TO TYLKO RYSUJE GRID
     def draw_grid(self):
         for x in range(FIELD_W):
             for y in range(FIELD_H):
@@ -83,5 +94,6 @@ class Tetris:
         self.sprites.update()
 
     def draw(self):
-        self.draw_grid()
-        self.sprites.draw(self.app.screen)
+        if not self.game_gaused:
+            self.draw_grid()
+            self.sprites.draw(self.app.screen)
