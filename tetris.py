@@ -2,6 +2,19 @@
 #   Kacper  Tonderys    11C
 #   Kacper  Sudnik      11C
 
+
+
+
+'''
+# TODO POPRAWA ROTACJI
+# TODO HIGHSCORE
+# TODO GUI
+# TODO IM DALJE TYM SZYBCIEJ NAPIERDALA
+# TODO IM DALEJ TO ZMIENIA TŁO I TEKSTURE BLOCZKÓW
+'''
+
+
+
 from settings import *
 from figura import Figura
 import math
