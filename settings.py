@@ -31,12 +31,7 @@ CZASY ANIMACJI
 NORMAL_ANIM_TIME = 350 #to sa ms
 FAST_ANIM_TIME = NORMAL_ANIM_TIME // 10
 
-
-
-
 FIELD_COLOR = pg.image.load('Resources/Backgrounds/pexels-codioful-(formerly-gradienta)-7135121.jpg')
-
-
 
 PORUSZANIE_FIGUR = {
     'LEWO': vec(-1, 0),

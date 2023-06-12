@@ -1,7 +1,6 @@
 #   Laura   Trzaska     11C
 #   Kacper  Tonderys    11C
 #   Kacper  Sudnik      11C
-import blok
 from settings import *
 from blok import Blok
 import random
@@ -16,7 +15,6 @@ class Figura:
         self.koniec_ruchu = False
         self.obecny = obecny
 
-
     def move(self, kierunek):
         kierunek_ruchu = PORUSZANIE_FIGUR[kierunek]
         nowa_pos = [blok.pos + kierunek_ruchu for blok in self.blocks]
@@ -29,7 +27,6 @@ class Figura:
         elif kierunek == 'DOL':
             self.koniec_ruchu = True
 
-    # TODO ZJEBANA ROTACJA DO POPRAWY
     def rotacja(self):
         if not self.shape == 'O':
 
@@ -45,5 +42,3 @@ class Figura:
 
     def update(self):
         self.move(kierunek='DOL')
-
-

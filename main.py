@@ -10,6 +10,8 @@ import sys
 data = {
     'hs': 0
 }
+
+
 class App:
     def __init__(self):
         pg.init()
@@ -19,28 +21,25 @@ class App:
         self.screen = pg.display.set_mode(RES)
         self.game_surface = pg.Surface(FIELD_RES)
         self.button1_surface = pg.Surface(vec(110, 50))
-        self.button1_text = pg.font.SysFont(None, 24).render("KONIEC", True, (155,164,181))
+        self.button1_text = pg.font.SysFont(None, 24).render("KONIEC", True, (155, 164, 181))
         self.button2_surface = pg.Surface(vec(110, 50))
-        self.button2_text = pg.font.SysFont(None, 24).render("OD NOWA", True, (155,164,181))
+        self.button2_text = pg.font.SysFont(None, 24).render("OD NOWA", True, (155, 164, 181))
         self.clock = pg.time.Clock()
         self.set_timer()
         self.tetris = Tetris(self)
         self.game_paused = False
         self.game_running = True
-        self.s_surface = pg.Surface(vec(300,100))
+        self.s_surface = pg.Surface(vec(300, 100))
 
         with open('data.json', 'r') as file:
             loaded_data = json.load(file)
         data['hs'] = loaded_data['hs']
         self.tetris.hscore = loaded_data['hs']
-        print(data['hs'])
 
-
-        self.s_text = pg.font.SysFont(None, 24).render("SCORE", True, (155,164,181))
-        self.s_score = pg.font.SysFont(None, 24).render(str(self.tetris.score), True, (155,164,181))
-        self.hs_text = pg.font.SysFont(None, 24).render("HIGHSCORE", True, (155,164,181))
-        self.hs_score = pg.font.SysFont(None, 24).render(str(self.tetris.hscore), True, (155,164,181))
-
+        self.s_text = pg.font.SysFont(None, 24).render("SCORE", True, (155, 164, 181))
+        self.s_score = pg.font.SysFont(None, 24).render(str(self.tetris.score), True, (155, 164, 181))
+        self.hs_text = pg.font.SysFont(None, 24).render("HIGHSCORE", True, (155, 164, 181))
+        self.hs_score = pg.font.SysFont(None, 24).render(str(self.tetris.hscore), True, (155, 164, 181))
 
     def set_timer(self):
         self.user_event = pg.USEREVENT + 0
@@ -56,7 +55,7 @@ class App:
         self.clock.tick(FPS)
 
     def draw(self):
-        self.screen.blit(MAIN_BACKGROUND, (0,0))
+        self.screen.blit(MAIN_BACKGROUND, (0, 0))
         self.screen.blit(GAME_BACKGROUND, (400, 0))
         self.tetris.draw()
         self.button1_surface.blit(self.button1_text, (20, 20))
@@ -96,13 +95,9 @@ class App:
                 self.anim_trigger = False
 
     def run(self):
-
-
-
         while True:
-            if  self.tetris.update_data:
+            if self.tetris.update_data:
                 data['hs'] = self.tetris.hscore
-                print(data['hs'])
                 self.tetris.update_data = False
                 with open('data.json', 'w') as file:
                     json.dump(data, file)
@@ -120,7 +115,7 @@ class App:
             self.check_events()
             self.update()
             self.draw()
-            if self.tetris.score%1000 == 0:
+            if self.tetris.score % 1000 == 0:
                 self.fast_a_f_boi = self.fast_a_f_boi - 50
 
 

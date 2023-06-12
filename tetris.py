@@ -4,7 +4,6 @@
 
 from settings import *
 from figura import Figura
-import math
 
 
 class Tetris:
@@ -20,6 +19,7 @@ class Tetris:
         self.hscore = 0
         self.update_score = False
         self.update_data = False
+        self.counter = 1
 
     def zapisz_pos_figury(self):
         for blok in self.figura.blocks:
@@ -43,13 +43,13 @@ class Tetris:
                     self.pozycje_figur[rzad][x].zyje = False
                     self.pozycje_figur[rzad][x] = 0
                 self.update_score = True
-                self.score += 100
+                self.score += 100 * self.counter
+                self.counter += 1
+        self.counter = 1
 
         if self.hscore < self.score:
             self.hscore = self.score
             self.update_data = True
-
-
 
     def get_pos_figur(self):
         return [[0 for x in range(FIELD_W)] for y in range(FIELD_H)]
@@ -70,7 +70,6 @@ class Tetris:
             self.figura = self.kolejna_figura
             self.kolejna_figura = Figura(self, obecny=False)
 
-
     def kontrola_lewo_prawo(self, pressed_key):
         if pressed_key == pg.K_LEFT:
             self.figura.move(kierunek='LEWO')
@@ -81,8 +80,6 @@ class Tetris:
         elif pressed_key == pg.K_DOWN:
             self.speeed = True
 
-
-# TO TYLKO RYSUJE GRID
     def draw_grid(self):
         for x in range(FIELD_W):
             for y in range(FIELD_H):
